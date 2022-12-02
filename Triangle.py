@@ -1,6 +1,7 @@
 import math
 import random
 import numpy as np
+import matplotlib.pyplot as plt
 
 def Distance(p1,p2):
    return math.sqrt((p2[0] - p1[0])**2 + (p2[1] - p1[1])**2 + (landscape[p2] - landscape[p1])**2)
@@ -38,7 +39,7 @@ def FillArray():
          landscape[x][y] = landscape[y][x]
          
 
-
+ax = plt.axes(projection="3d")
 N = 4
 R = 0.6
 landscape = np.zeros(shape = (2**N + 1, 2**N + 1))
@@ -53,3 +54,11 @@ landscape[p3] = random.random() * 100
 
 MakeTriangle(p1,p2,p3, R, N)
 FillArray()
+
+x_data = np.arange(0, 2**N + 1, 1)
+y_data = np.arange(0, 2**N + 1, 1)
+
+X, Y = np.meshgrid(x_data, y_data)
+
+ax.plot_surface(X, Y, landscape)
+plt.show()
