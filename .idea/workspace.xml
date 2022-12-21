@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe578a20-8caa-4222-a3dd-eecfb56b88c9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Fractal_Landscape_Generator.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Fractal_Landscape_Generator.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Diamond.py" beforeDir="false" afterPath="$PROJECT_DIR$/Diamond.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Triangle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Triangle.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +41,8 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\Feliks\Desktop\Fractal_Landscape_Generator\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\kubix\PycharmProjects\pythonProject\venv\Scripts\python.exe" />
+      <option name="SDK_NAME" value="Python 3.9 (pythonProject)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />

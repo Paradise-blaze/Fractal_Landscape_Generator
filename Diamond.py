@@ -1,5 +1,6 @@
 import random
 import numpy as np
+from matplotlib import cm
 import matplotlib.pyplot as plt
 
 
@@ -8,6 +9,7 @@ N = 10
 R = 64
 
 wdth = 2 ** N
+
 
 def FillArray():
    global wdth, R
@@ -54,10 +56,36 @@ landscape[2**N, 2**N] = random.random() * 100
 
 FillArray()
 
+
 x_data = np.arange(0, 2**N + 1, 1)
 y_data = np.arange(0, 2**N + 1, 1)
 
 X, Y = np.meshgrid(x_data, y_data)
 
-ax.plot_surface(X, Y, landscape)
+base = np.zeros(shape=(2**N+1, 2**N+1))
+
+base[0, 0] = random.random() * 20
+base[0, 2**N] = random.random() * 20
+base[2**N, 0] = random.random() * 20
+base[2**N, 2**N] = random.random() * 20
+
+for x in range(0,(2**N+1)):
+   if x not in [0,2**N]:
+      base[x][0] = base[0][0]*(2**N-x)/2**N + base[2**N][0]*x/2**N
+      base[x][2**N] = base[0][2**N]*(2**N-x)/2**N + base[2**N][2**N]*x/2**N
+   for y in range(0,(2**N+1)):
+      if y not in [0, 2 ** N]:
+         base[x][y] = base[x][0]*(2**N-y)/2**N + base[x][2**N]*y/2**N
+
+for x in range(0,(2**N+1)):
+   for y in range(0, (2**N+1)):
+      landscape[x][y] += base[x][y]
+
+
+x_data = np.arange(0, 2**N + 1, 1)
+y_data = np.arange(0, 2**N + 1, 1)
+
+X, Y = np.meshgrid(x_data, y_data)
+coloring = cm.jet(landscape/np.amax(landscape))
+ax.plot_surface(X, Y, landscape, facecolors=coloring)
 plt.show()
