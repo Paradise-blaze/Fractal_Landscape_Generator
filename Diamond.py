@@ -89,5 +89,5 @@ f.set_figheight(20)
 X, Y = np.meshgrid(x_data, y_data)
 coloring = cm.terrain(landscape/np.amax(landscape))
 ax.plot_surface(X, Y, landscape, facecolors=coloring, cstride=1, rstride=1)
-
+#plt.show()
 plt.savefig('plot1.pdf')

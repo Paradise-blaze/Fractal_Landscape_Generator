@@ -7,6 +7,7 @@
     <list default="true" id="fe578a20-8caa-4222-a3dd-eecfb56b88c9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Diamond.py" beforeDir="false" afterPath="$PROJECT_DIR$/Diamond.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Triangle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Triangle.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +33,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.Diamond">
+  <component name="RunManager" selected="Python.Triangle">
     <configuration name="Diamond" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Fractal_Landscape_Generator" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -56,17 +57,18 @@
       <method v="2" />
     </configuration>
     <configuration name="Triangle" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Fractal_Landscape_Generator" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\Feliks\Desktop\Fractal_Landscape_Generator\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\kubix\OneDrive\Pulpit\Fractal_Landscape_Generator\venv\Scripts\python.exe" />
+      <option name="SDK_NAME" value="Python 3.9 (Fractal_Landscape_Generator)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Triangle.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -82,8 +84,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Diamond" />
         <item itemvalue="Python.Triangle" />
+        <item itemvalue="Python.Diamond" />
       </list>
     </recent_temporary>
   </component>
