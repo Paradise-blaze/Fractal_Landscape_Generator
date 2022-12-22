@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib import cm
 import matplotlib.pyplot as plt
 
-
+f = plt.figure()
 ax = plt.axes(projection="3d")
 N = 10
 R = 64
@@ -84,8 +84,10 @@ for x in range(0,(2**N+1)):
 
 x_data = np.arange(0, 2**N + 1, 1)
 y_data = np.arange(0, 2**N + 1, 1)
-
+f.set_figwidth(20)
+f.set_figheight(20)
 X, Y = np.meshgrid(x_data, y_data)
-coloring = cm.jet(landscape/np.amax(landscape))
-ax.plot_surface(X, Y, landscape, facecolors=coloring)
-plt.show()
+coloring = cm.terrain(landscape/np.amax(landscape))
+ax.plot_surface(X, Y, landscape, facecolors=coloring, cstride=1, rstride=1)
+
+plt.savefig('plot1.pdf')
