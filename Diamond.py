@@ -1,15 +1,22 @@
 import random
 import numpy as np
+import scipy as sp
+import scipy.ndimage
 from matplotlib import cm
 import matplotlib.pyplot as plt
 
 f = plt.figure()
 ax = plt.axes(projection="3d")
-N = 10
+N = 5
 R = 64
 
 wdth = 2 ** N
 
+def PrepareWeights(weights):
+   return weights / np.sum(weights[:])
+
+def Smoothening(tab, weights):
+   return sp.ndimage.convolve(tab, weights, mode='constant')
 
 def FillArray():
    global wdth, R
@@ -47,6 +54,17 @@ def Square(wdth):
             landscape[x][2**N-1] = middle
 
 
+weights = np.array([[0, 0, 1, 0, 0],
+                    [0, 2, 4, 2, 0],
+                    [1, 4, 8, 4, 1],
+                    [0, 2, 4, 2, 0],
+                    [0, 0, 1, 0, 0]],
+                    dtype=float)
+# weights = np.array([[0, 1, 0],
+#                     [1, 2, 1],
+#                     [0, 1, 0]],
+#                     dtype=float)
+
 landscape = np.zeros(shape=(2**N+1, 2**N+1))
 
 landscape[0, 0] = random.random() * 100
@@ -55,6 +73,8 @@ landscape[2**N, 0] = random.random() * 100
 landscape[2**N, 2**N] = random.random() * 100
 
 FillArray()
+PrepareWeights(weights)
+landscape = Smoothening(landscape, weights)
 
 
 x_data = np.arange(0, 2**N + 1, 1)
@@ -89,5 +109,5 @@ f.set_figheight(20)
 X, Y = np.meshgrid(x_data, y_data)
 coloring = cm.terrain(landscape/np.amax(landscape))
 ax.plot_surface(X, Y, landscape, facecolors=coloring, cstride=1, rstride=1)
-#plt.show()
-plt.savefig('plot1.pdf')
+plt.show()
+# plt.savefig('plot1s.jpg')
