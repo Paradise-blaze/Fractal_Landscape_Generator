@@ -9,8 +9,12 @@ import matplotlib.pyplot as plt
 
 f = plt.figure()
 ax = plt.axes(projection="3d")
-N = 6
+N = 8
+BIGN = N+2
 R = 64
+
+landscapes = []
+mediumLandscapes = []
 
 wdth = 2 ** N
 
@@ -28,6 +32,15 @@ def PrepareWeights(n):
                     [1, 4, 8, 4, 1],
                     [0, 2, 4, 2, 0],
                     [0, 0, 1, 0, 0]],
+                   dtype=float)
+   elif n == 2:
+      weights = np.array([[0, 0, 0, 1, 0, 0, 0],
+                    [0, 0, 2, 4, 2, 0, 0],
+                    [0, 2, 4, 8, 4, 2, 0],
+                    [1, 4, 8, 16, 8, 4, 1],
+                    [0, 2, 4, 8, 4, 2, 0],
+                    [0, 0, 2, 4, 2, 0, 0],
+                    [0, 0, 0, 1, 0, 0, 0]],
                    dtype=float)
 
    weights = weights / np.sum(weights[:])
@@ -73,54 +86,69 @@ def Square(wdth):
          if y == 0:
             landscape[x][2**N-1] = middle
 
-############################################################ Generacja krajobrazu
+############################################################ Generacja i "zlepianie" krajobrazów
 
-
+bigLandscape = np.zeros(shape=(2**BIGN+1, 2**BIGN+1))
 landscape = np.zeros(shape=(2**N+1, 2**N+1))
 
-landscape[0, 0] = random.random() * 100
-landscape[0, 2**N] = random.random() * 100
-landscape[2**N, 0] = random.random() * 100
-landscape[2**N, 2**N] = random.random() * 100
+subN = 2**(BIGN-N)
+howMany = int(subN * subN)
+print(howMany)
+for i in range(howMany):
+   landscape = np.zeros(shape=(2**N+1, 2**N+1))
+   R = 64
+   wdth = 2 ** N
 
-FillArray()
+   landscape[0, 0] = random.random() * 128
+   landscape[0, 2**N] = random.random() * 128
+   landscape[2**N, 0] = random.random() * 128
+   landscape[2**N, 2**N] = random.random() * 128
+
+   FillArray()
+   landscapes.append(landscape.copy())
+
+for i in range((subN)):
+   mediumLandscapes.append(np.concatenate(landscapes[(subN)*i:(subN)*i+(subN)]))
+bigLandscape = np.concatenate(mediumLandscapes,axis=1)
+
 weights = PrepareWeights(1)
-landscape = Smoothening(landscape, weights)
+bigLandscape = Smoothening(bigLandscape, weights)
 
 ############################################################ losowe podstawa
 
-x_data = np.arange(0, 2**N + 1, 1)
-y_data = np.arange(0, 2**N + 1, 1)
+
+x_data = np.arange(0, 2**BIGN + (subN), 1)
+y_data = np.arange(0, 2**BIGN + (subN), 1)
 
 X, Y = np.meshgrid(x_data, y_data)
 
-base = np.zeros(shape=(2**N+1, 2**N+1))
+base = np.zeros(shape=(2**BIGN+(subN), 2**BIGN+(subN)))
 
 base[0, 0] = random.random() * 20
-base[0, 2**N] = random.random() * 20
-base[2**N, 0] = random.random() * 20
-base[2**N, 2**N] = random.random() * 20
+base[0, 2**BIGN] = random.random() * 20
+base[2**BIGN, 0] = random.random() * 20
+base[2**BIGN, 2**BIGN] = random.random() * 20
 
-for x in range(0,(2**N+1)):
-   if x not in [0,2**N]:
-      base[x][0] = base[0][0]*(2**N-x)/2**N + base[2**N][0]*x/2**N
-      base[x][2**N] = base[0][2**N]*(2**N-x)/2**N + base[2**N][2**N]*x/2**N
-   for y in range(0,(2**N+1)):
-      if y not in [0, 2 ** N]:
-         base[x][y] = base[x][0]*(2**N-y)/2**N + base[x][2**N]*y/2**N
+for x in range(0,(2**BIGN+(subN))):
+   if x not in [0,2**BIGN]:
+      base[x][0] = base[0][0]*(2**BIGN-x)/2**BIGN + base[2**BIGN][0]*x/2**BIGN
+      base[x][2**BIGN] = base[0][2**BIGN]*(2**BIGN-x)/2**BIGN + base[2**BIGN][2**BIGN]*x/2**BIGN
+   for y in range(0,(2**BIGN+(subN))):
+      if y not in [0, 2 ** BIGN]:
+         base[x][y] = base[x][0]*(2**BIGN-y)/2**BIGN + base[x][2**BIGN]*y/2**BIGN
 
-for x in range(0,(2**N+1)):
-   for y in range(0, (2**N+1)):
-      landscape[x][y] += base[x][y]
+for x in range(0,(2**BIGN+(subN))):
+   for y in range(0, (2**BIGN+(subN))):
+      bigLandscape[x][y] += base[x][y]
 
 ############################################################ kolorowanie oraz wyswietlanie
 
-x_data = np.arange(0, 2**N + 1, 1)
-y_data = np.arange(0, 2**N + 1, 1)
+x_data = np.arange(0, 2**BIGN + (subN), 1)
+y_data = np.arange(0, 2**BIGN + (subN), 1)
 f.set_figwidth(10)
 f.set_figheight(10)
 X, Y = np.meshgrid(x_data, y_data)
-coloring = cm.terrain(landscape/np.amax(landscape))
-ax.plot_surface(X, Y, landscape, facecolors=coloring, cstride=1, rstride=1)
+coloring = cm.terrain(bigLandscape/np.amax(bigLandscape))
+ax.plot_surface(X, Y, bigLandscape, facecolors=coloring, cstride=1, rstride=1)
 # plt.show()
-plt.savefig('plotD7R64_S.jpg')
+plt.savefig('plotBIGD11R128_1.jpg')

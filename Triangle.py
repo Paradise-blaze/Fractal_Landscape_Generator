@@ -6,6 +6,8 @@ import scipy.ndimage
 from matplotlib import cm
 import matplotlib.pyplot as plt
 
+############################################################ deklaracja funkcji
+
 def PrepareWeights(weights):
    return weights / np.sum(weights[:])
 
@@ -64,8 +66,10 @@ weights = np.array([[0, 0, 1, 0, 0],
 
 f = plt.figure()
 ax = plt.axes(projection="3d")
-N = 5
+N = 9
 R = 0.7
+
+############################################################ Generacja krajobrazu
 
 landscape = np.zeros(shape = (2**N + 1, 2**N + 1))
 
@@ -81,6 +85,8 @@ MakeTriangle(p1,p2,p3, R, N)
 FillArray()
 PrepareWeights(weights)
 landscape = Smoothening(landscape, weights)
+
+############################################################ losowe podstawa
 
 base = np.zeros(shape=(2**N+1, 2**N+1))
 
@@ -100,6 +106,9 @@ for x in range(0,(2**N+1)):
 for x in range(0,(2**N+1)):
    for y in range(0, (2**N+1)):
       landscape[x][y] += base[x][y]
+
+############################################################ kolorowanie oraz wyswietlanie
+
 x_data = np.arange(0, 2**N + 1, 1)
 y_data = np.arange(0, 2**N + 1, 1)
 
